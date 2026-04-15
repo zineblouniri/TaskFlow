@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import pool from './config/db.js';
 
 dotenv.config()
 
@@ -17,4 +18,11 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send("API is running..");
 });
+pool.connect()
+.then(() => {
+    console.log('Connected to the database')
+})
+.catch((err) => {
+    console.error('Error connecting to the database', err)
+})
 
