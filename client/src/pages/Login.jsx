@@ -21,9 +21,11 @@ const Login = () => {
             console.log(res)
             localStorage.setItem('token' , res.data.token)  
             navigate('/dashboard')
-            setLoading(false)
+            
         } catch (error) {
             alert(error.response?.data?.message || "Login failed");
+            
+        }finally {
             setLoading(false)
         }
     }
@@ -31,8 +33,8 @@ const Login = () => {
     <div>
         <h1>Login</h1>
         <form  onSubmit={handleSubmit}>
-            <input type="email" required placeholder='Email' value = {user.email} onChange={handleChange} />
-            <input type="password" required placeholder='password' value = {user.password} onChange={handleChange} />
+            <input type="email" name='email' required placeholder='Email' value = {user.email} onChange={handleChange} />
+            <input type="password" name='password' required placeholder='password' value = {user.password} onChange={handleChange} />
             <button type="submit" disabled={loading}>
                 {loading ? "Logging in..." : "Login"}
             </button>
