@@ -12,6 +12,26 @@ const Tasks = () => {
     deadline: ""
   })
 
+  const editChange = async (e, taskId) => {
+  const newStatus = e.target.value;
+
+  try {
+    const res = await API.put(`/tasks/${taskId}`, {
+      status: newStatus
+    });
+    console.log("Task updated:", res);
+
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === taskId ? res.data : task
+      )
+    );
+
+  } catch (error) {
+    console.log("Error updating task:", error);
+  }
+};
+
   const handleChange = (e) => {
     setNewTask({...newTask , [e.target.name]:e.target.value})
   }
@@ -26,6 +46,17 @@ const Tasks = () => {
         console.log("Error creating task:", error);
     }
   }
+  const deleteTask = async (taskId) => {
+    try {
+        const res = await API.delete(`/tasks/${taskId}`)
+        setTasks(prev => prev.filter(task => task.id !== taskId))
+        alert('Task deleted successfully')
+    } catch (error) {
+        console.log("Error deleting task:", error);
+    }
+  }
+
+  
   const getTasks = async () => {
     try {
       const res = await API.get(`/tasks/${projectId}`);
@@ -81,7 +112,11 @@ const Tasks = () => {
             <li key={task.id}>
               <p>Title: {task.title}</p>
               <p>Description: {task.description}</p>
-              <p>Status: {task.status}</p>
+              <select value={task.status} name="status" onChange={(e) => editChange(e, task.id)}>
+                <option value="todo">To Do</option>
+                <option value="in_progress">In Progress</option>
+                <option value="done">Done</option>
+              </select>
               <p>Priority: {task.priority}</p>
               <p>
                 Deadline:{" "}
@@ -89,6 +124,7 @@ const Tasks = () => {
                   ? new Date(task.deadline).toLocaleDateString()
                   : "No deadline"}
               </p>
+                <button onClick={() => deleteTask(task.id)}>Delete Task</button>
             </li>
           ))}
         </ul>
