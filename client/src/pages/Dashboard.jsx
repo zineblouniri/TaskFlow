@@ -6,6 +6,11 @@ const Dashboard = () => {
     const [projects, setProjects] = useState([])
     const navigate = useNavigate()
 
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    };
+
     const getProjects = async () => {
         try {
             const res =await API.get('/projects')
@@ -22,6 +27,7 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Dashboard</h1>
+      <button onClick={handleLogout}>Logout</button>
         {projects.length === 0 ? <p>No projects found</p> : (
             <ul>
                 {projects.map((project) => (
@@ -33,6 +39,7 @@ const Dashboard = () => {
                 ))}
             </ul>
         )}
+        
     </div>
   )
 }
