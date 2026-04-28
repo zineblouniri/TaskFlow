@@ -3,12 +3,14 @@ import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Tasks from "./pages/Tasks.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Register from "./pages/Register.jsx";
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/tasks/:projectId" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
         </Routes>

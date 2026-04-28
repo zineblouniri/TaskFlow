@@ -70,6 +70,8 @@ const Tasks = () => {
   }, [projectId]);
   return (
     <div>
+      <h1>Add Task</h1>
+      <div>
         <form  onSubmit={handleSubmit}>
           <input
             type="text"
@@ -103,7 +105,9 @@ const Tasks = () => {
           />
           <button type="submit">Add Task</button>
         </form>
-      <h1>Tasks for project {projectId}</h1>
+        </div>
+        <div>
+      <h1>Tasks for project :</h1>
       {tasks.length === 0 ? (
         <p>No tasks found for this project</p>
       ) : (
@@ -118,6 +122,7 @@ const Tasks = () => {
                 <option value="done">Done</option>
               </select>
               <p>Priority: {task.priority}</p>
+              <p>Project name: {task.project_name}</p>
               <p>
                 Deadline:{" "}
                 {task.deadline
@@ -129,6 +134,7 @@ const Tasks = () => {
           ))}
         </ul>
       )}
+      </div>
     </div>
   );
 };
