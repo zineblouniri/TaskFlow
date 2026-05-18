@@ -18,7 +18,7 @@ const Register = () => {
         try {
             const res = await API.post('/auth/register',formData)
             console.log('User registered successfully:', res.data)
-            navigate('/dashboard')
+            navigate('/login')
         } catch (error) {
             console.error('Error registering user:', error)
         }
