@@ -5,6 +5,7 @@ import DashboardLayout from "../components/layout/DashboardLayout.jsx";
 import Input from "../components/ui/Input.jsx";
 import Button from "../components/ui/Button.jsx";
 import Card from "../components/ui/Card.jsx";
+import ProjectForm from "../components/forms/ProjectForm.jsx";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -88,28 +89,18 @@ const Dashboard = () => {
           <p className="text-gray-500 mt-1">Manage your projects and tasks</p>
         </div>
       </div>
-      <Card className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Add Project</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <Input
-            type="text"
-            required
-            placeholder="Title"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Input
-            type="text"
-            required
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 ">
-            Add Project
-          </Button>
-        </form>
-      </Card>
+      <ProjectForm
+        title="Add Project"
+        buttonText="Create Project"
+        formData={{ name, description }}
+        setFormData={({ name, description }) => {
+          setName(name);
+          setDescription(description);
+        }}
+        handleSubmit={handleSubmit}
+        buttonColor="bg-blue-600 hover:bg-blue-700"
+      />
+      
       <Card className=" mb-8">
         <h1 className="text-gray-800 text-xl mb-3 font-semibold">Projects</h1>
 
@@ -178,6 +169,7 @@ const Dashboard = () => {
         </Card>
         
         {editingProject.id && (
+          <div>
           <Card className="mb-8">
           <div className="gap-4 mb-3">
             <h1 className="text-gray-800 text-xl mb-4 font-semibold">Edit Project</h1>
@@ -210,6 +202,15 @@ const Dashboard = () => {
             </form>
           </div>
           </Card>
+          <ProjectForm
+          title="Edit Project"
+          buttonText="Update Project"
+          formData={editingProject}
+          setFormData={(data) => setEditingProject(data)}
+          handleSubmit={(e) => updateProject(e, editingProject.id)}
+          buttonColor="bg-green-500 hover:bg-green-600"/>
+
+          </div>
         )}
       
     </DashboardLayout>
