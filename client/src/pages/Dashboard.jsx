@@ -4,6 +4,7 @@ import API from "../api/axios.js";
 import DashboardLayout from "../components/layout/DashboardLayout.jsx";
 import Input from "../components/ui/Input.jsx";
 import Button from "../components/ui/Button.jsx";
+import Card from "../components/ui/Card.jsx";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -87,7 +88,7 @@ const Dashboard = () => {
           <p className="text-gray-500 mt-1">Manage your projects and tasks</p>
         </div>
       </div>
-      <div className="bg-white p-6 rounded-2xl shadow mb-8">
+      <Card className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Add Project</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
@@ -108,32 +109,52 @@ const Dashboard = () => {
             Add Project
           </Button>
         </form>
-      </div>
-      <div className="bg-white p-6 rounded-2xl shadow mb-8">
+      </Card>
+      <Card className=" mb-8">
         <h1 className="text-gray-800 text-xl mb-3 font-semibold">Projects</h1>
 
         {projects.length === 0 ? (
-          <p>No projects found</p>
+          <Card>
+
+  <div className="text-center py-10">
+
+    <h3 className="text-xl font-semibold text-gray-700 mb-2">
+      No projects yet
+    </h3>
+
+    <p className="text-gray-500">
+      Create your first project to get started.
+    </p>
+
+  </div>
+
+</Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <div
+              <Card
                 key={project.id}
-                className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition"
+                className=" hover:shadow-xl transition  duration-300 border border-gray-100"
               >
                 <div
                   className="cursor-pointer"
                   onClick={() => navigate(`/tasks/${project.id}`)}
                 >
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">
                     {project.name}
                   </h3>
-                  <p className="text-gray-600 mb-4">
-                     {project.description}
-                  </p>
-                  <p className="text-sm text-gray-400">
+                  
+
+                  <p className="text-sm text-gray-400 mt-1">
                     Created at:{" "}
                     {new Date(project.created_at).toLocaleDateString()}
+                  </p>
+                  </div>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed">
+                     {project.description}
                   </p>
                 </div>
                 <div className="flex gap-3 mt-6">
@@ -150,17 +171,18 @@ const Dashboard = () => {
                     update
                   </Button>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         )}
-        </div>
-        <div className="bg-white p-6 rounded-2xl shadow mb-8">
-        {editingProject && (
+        </Card>
+        
+        {editingProject.id && (
+          <Card className="mb-8">
           <div className="gap-4 mb-3">
-            <h1 className="text-gray-800 text-xl mb-3 font-semibold">Edit Project</h1>
+            <h1 className="text-gray-800 text-xl mb-4 font-semibold">Edit Project</h1>
             <form onSubmit={(e) => updateProject(e, editingProject.id)} 
-                className="flex  items-center gap-2">
+                className="flex flex-col gap-2">
               <Input
                 type="text"
                 required
@@ -187,8 +209,9 @@ const Dashboard = () => {
               </Button>
             </form>
           </div>
+          </Card>
         )}
-      </div>
+      
     </DashboardLayout>
   );
 };
