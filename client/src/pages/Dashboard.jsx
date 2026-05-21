@@ -6,6 +6,7 @@ import Input from "../components/ui/Input.jsx";
 import Button from "../components/ui/Button.jsx";
 import Card from "../components/ui/Card.jsx";
 import ProjectForm from "../components/forms/ProjectForm.jsx";
+import Modal from "../components/ui/Modal.jsx";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -16,12 +17,16 @@ const Dashboard = () => {
     description: "",
   });
 
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const editProject = (project) => {
     setEditingProject({
       id: project.id,
       name: project.name,
       description: project.description,
     });
+    setIsEditModalOpen(true);
   };
 
   const updateProject = async (e, projectId) => {
@@ -36,6 +41,7 @@ const Dashboard = () => {
         prev.map((project) => (project.id === projectId ? res.data : project)),
       );
       setEditingProject({ id: null, name: "", description: "" });
+      setIsEditModalOpen(false);
     } catch (error) {
       console.error("Error updating project:", error);
     }
@@ -74,6 +80,7 @@ const Dashboard = () => {
       setProjects((prev) => [...prev, res.data]);
       setName("");
       setDescription("");
+      setIsCreateModalOpen(false);
     } catch (error) {
       alert("Failed to create project");
       console.log("Error creating project:", error);
@@ -81,6 +88,7 @@ const Dashboard = () => {
   };
 
   return (
+    
     <DashboardLayout>
       <div className="flex justify-between items-center mb-8">
         <div>
@@ -89,37 +97,30 @@ const Dashboard = () => {
           <p className="text-gray-500 mt-1">Manage your projects and tasks</p>
         </div>
       </div>
-      <ProjectForm
-        title="Add Project"
-        buttonText="Create Project"
-        formData={{ name, description }}
-        setFormData={({ name, description }) => {
-          setName(name);
-          setDescription(description);
-        }}
-        handleSubmit={handleSubmit}
-        buttonColor="bg-blue-600 hover:bg-blue-700"
-      />
       
+
+      <Button
+        onClick={() => setIsCreateModalOpen(true)}
+        className="bg-blue-600 hover:bg-blue-700 mb-4"
+      >
+        Create Project
+      </Button>
+
       <Card className=" mb-8">
         <h1 className="text-gray-800 text-xl mb-3 font-semibold">Projects</h1>
 
         {projects.length === 0 ? (
           <Card>
+            <div className="text-center py-10">
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                No projects yet
+              </h3>
 
-  <div className="text-center py-10">
-
-    <h3 className="text-xl font-semibold text-gray-700 mb-2">
-      No projects yet
-    </h3>
-
-    <p className="text-gray-500">
-      Create your first project to get started.
-    </p>
-
-  </div>
-
-</Card>
+              <p className="text-gray-500">
+                Create your first project to get started.
+              </p>
+            </div>
+          </Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {projects.map((project) => (
@@ -133,26 +134,25 @@ const Dashboard = () => {
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                    {project.name}
-                  </h3>
-                  
+                      <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                        {project.name}
+                      </h3>
 
-                  <p className="text-sm text-gray-400 mt-1">
-                    Created at:{" "}
-                    {new Date(project.created_at).toLocaleDateString()}
-                  </p>
-                  </div>
+                      <p className="text-sm text-gray-400 mt-1">
+                        Created at:{" "}
+                        {new Date(project.created_at).toLocaleDateString()}
+                      </p>
+                    </div>
                   </div>
                   <p className="text-gray-600 leading-relaxed">
-                     {project.description}
+                    {project.description}
                   </p>
                 </div>
                 <div className="flex gap-3 mt-6">
                   <Button
                     onClick={() => deleteProject(project.id)}
                     className="flex-1 bg-yellow-500 hover:bg-yellow-600 transition"
-                   >
+                  >
                     delete
                   </Button>
                   <Button
@@ -166,55 +166,42 @@ const Dashboard = () => {
             ))}
           </div>
         )}
-        </Card>
-        
-        {editingProject.id && (
-          <div>
-          <Card className="mb-8">
-          <div className="gap-4 mb-3">
-            <h1 className="text-gray-800 text-xl mb-4 font-semibold">Edit Project</h1>
-            <form onSubmit={(e) => updateProject(e, editingProject.id)} 
-                className="flex flex-col gap-2">
-              <Input
-                type="text"
-                required
-                placeholder="Title" 
-                value={editingProject.name}
-                onChange={(e) =>
-                  setEditingProject({ ...editingProject, name: e.target.value })
-                }
-              />
-              <Input
-                type="text"
-                required
-                placeholder="Description"
-                value={editingProject.description}
-                onChange={(e) =>
-                  setEditingProject({
-                    ...editingProject,
-                    description: e.target.value,
-                  })
-                }
-              />
-              <Button type="submit" className="bg-green-500 hover:bg-green-600">
-                Update Project
-              </Button>
-            </form>
-          </div>
-          </Card>
-          <ProjectForm
-          title="Edit Project"
-          buttonText="Update Project"
-          formData={editingProject}
-          setFormData={(data) => setEditingProject(data)}
-          handleSubmit={(e) => updateProject(e, editingProject.id)}
-          buttonColor="bg-green-500 hover:bg-green-600"/>
+      </Card>
+<Modal
+      isOpen={isCreateModalOpen}
+      onClose={() => setIsCreateModalOpen(false)}
+    >
+      <ProjectForm
+        title="Create Project"
+        buttonText="Create Project"
+        formData={{ name, description }}
+        setFormData={({ name, description }) => {
+          setName(name);
+          setDescription(description);
+        }}
+        handleSubmit={handleSubmit}
+        buttonColor="bg-blue-600 hover:bg-blue-700"
+      />
+    </Modal>
 
-          </div>
-        )}
+    <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)}>
+      <ProjectForm
+        title="Edit Project"
+        buttonText="Update Project"
+        formData={editingProject}
+        setFormData={(data) => setEditingProject(data)}
+        handleSubmit={(e) => updateProject(e, editingProject.id)}
+        buttonColor="bg-green-500 hover:bg-green-600"
+      />
+    </Modal>
       
     </DashboardLayout>
+     
+    
+  
   );
+
+ 
 };
 
 export default Dashboard;
