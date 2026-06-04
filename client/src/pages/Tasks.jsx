@@ -88,7 +88,7 @@ const Tasks = () => {
   
   return (
     <div className="flex flex-col bg-gray-100">
-   <div className="flex flex-col  items-start p-6">
+   <div className="flex flex-col  items-center md:items-start p-6">
     <p className="text-2xl font-semibold text-gray-900 mb-2">Tasks</p>
     <p className="text-gray-600 mb-4">Manage your tasks</p>
     <div className="flex gap-4 mb-6">
@@ -101,8 +101,8 @@ const Tasks = () => {
     </select>
     </div>
     </div>
-        <div className="flex flex-col items-start p-6">
-      <h1 className = "text-2xl font-semibold text-gray-900 mb-10">List of Tasks:</h1>
+        <div className="flex flex-col items-center md:items-start ">
+      <h1 className = "text-2xl font-semibold text-gray-900 mb-2 md:mb-10">List of Tasks:</h1>
       {tasks.length === 0 ? (
         <Card>
   <div className="text-center py-10">
@@ -120,8 +120,8 @@ const Tasks = () => {
           {filteredTasks.map((task) => (
             <Card  key={task.id}>
             <div  className = "p-4 justify-center  flex flex-col gap-3">
-              <p>{task.title}</p>
-              <p>{task.description}</p>
+              <p className="font-semibold text-lg">{task.title}</p>
+              <p className="text-gray-700">{task.description}</p>
               <select value={task.status} name="status" onChange={(e) => editChange(e, task.id)} className="border border-gray-300 w-1/2 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="todo">To Do</option>
                 <option value="in_progress">In Progress</option>
@@ -135,7 +135,7 @@ const Tasks = () => {
                   ? new Date(task.deadline).toLocaleDateString()
                   : "No deadline"}
               </p>
-                <Button className="bg-red-500 w-1/3" onClick={() => deleteTask(task.id)}>Delete Task</Button>
+                <Button className="bg-red-500 md:w-1/3" onClick={() => deleteTask(task.id)}>Delete Task</Button>
             </div>
             </Card>
           ))}

@@ -1,7 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Menu } from "lucide-react";
 
-const Navbar = () => {
+const Navbar = ({setIsSidebarOpen}) => {
   const navigate = useNavigate();
   const handleLogout = () => {
         localStorage.removeItem("token");
@@ -9,7 +10,12 @@ const Navbar = () => {
     };
   return (
     <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-
+<button
+  className="md:hidden "
+  onClick={() => setIsSidebarOpen(true)}
+>
+  <Menu />
+</button>
       <h2 className="text-xl font-semibold">
         Dashboard
       </h2>

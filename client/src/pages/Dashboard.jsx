@@ -90,21 +90,22 @@ const Dashboard = () => {
   return (
     
     <DashboardLayout>
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">Projects</h1>
+      <div className="flex flex-col md:flex-row md:justify-between items-center  gap-4 mb-8">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-bold text-gray-800 text-center ">Projects</h1>
 
           <p className="text-gray-500 mt-1">Manage your projects and tasks</p>
         </div>
-      </div>
-      
-
-      <Button
+        <Button
         onClick={() => setIsCreateModalOpen(true)}
-        className="bg-blue-600 hover:bg-blue-700 mb-4"
+        className="bg-blue-600 hover:bg-blue-700 mb-4 "
       >
         Create Project
       </Button>
+      </div>
+      
+
+      
 
       <Card className=" mb-8">
         <h1 className="text-gray-800 text-xl mb-3 font-semibold">Projects</h1>
@@ -148,16 +149,16 @@ const Dashboard = () => {
                     {project.description}
                   </p>
                 </div>
-                <div className="flex gap-3 mt-6">
+                <div className="flex flex-col md:flex-row gap-3 mt-6">
                   <Button
                     onClick={() => deleteProject(project.id)}
-                    className="flex-1 bg-yellow-500 hover:bg-yellow-600 transition"
+                    className="flex-1 bg-yellow-500 hover:bg-yellow-600 transition "
                   >
                     delete
                   </Button>
                   <Button
                     onClick={() => editProject(project)}
-                    className="flex-1 bg-red-500 hover:bg-red-600 transition"
+                    className="flex-1 bg-red-500 hover:bg-red-600 transition "
                   >
                     update
                   </Button>
