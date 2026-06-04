@@ -1,6 +1,8 @@
 import React from 'react'
 import API from '../api/axios.js'
 import { useNavigate } from 'react-router-dom'
+import Input from '../components/ui/Input.jsx'
+import Button from '../components/ui/Button.jsx'
 
 
 const Login = () => {
@@ -10,6 +12,7 @@ const Login = () => {
     })
     const navigate = useNavigate()
     const [loading , setLoading] = React.useState(false)
+    const [error , setError] = React.useState('')
     const handleChange = (e) => {
         setUser({...user, [e.target.name] : e.target.value})
     }
@@ -23,23 +26,26 @@ const Login = () => {
             navigate('/dashboard')
             
         } catch (error) {
-            alert(error.response?.data?.message || "Login failed");
+            setError(error.response?.data?.message || "Login failed")
             
         }finally {
             setLoading(false)
         }
     }
   return (
-    <div>
-        <h1>Login</h1>
-        <form  onSubmit={handleSubmit}>
-            <input type="email" name='email' required placeholder='Email' value = {user.email} onChange={handleChange} />
-            <input type="password" name='password' required placeholder='password' value = {user.password} onChange={handleChange} />
-            <button type="submit" disabled={loading}>
+    <div className='min-h-screen flex items-center justify-center bg-gray-50'>
+        <div className='w-full max-w-xl p-6 mx-4 border border-gray-100 rounded-2xl shadow-lg flex flex-col gap-6 items-center'>
+            <h1 className ="text-2xl font-semibold text-gray-900 mt-6 mb-10">Login</h1>
+            {error && <p className='text-red-500'>{error}</p>}
+        <form  onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
+            <Input type="email" name='email' required placeholder='Email' value = {user.email} onChange={handleChange} />
+            <Input type="password" name='password' required placeholder='password' value = {user.password} onChange={handleChange} />
+            <Button className='bg-blue-500 hover:bg-blue-600' type="submit" disabled={loading}>
                 {loading ? "Logging in..." : "Login"}
-            </button>
+            </Button>
         </form>
-        <p>Don't have an account? <a href="/register">Register</a></p>
+        <p>Don't have an account? <a href="/register" className="text-blue-500 hover:underline">Register</a></p>
+        </div>
     </div>
   )
 }
