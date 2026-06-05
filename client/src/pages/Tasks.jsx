@@ -101,7 +101,7 @@ const Tasks = () => {
     </select>
     </div>
     </div>
-        <div className="flex flex-col items-center md:items-start ">
+        <div className="flex flex-col items-center ">
       <h1 className = "text-2xl font-semibold text-gray-900 mb-2 md:mb-10">List of Tasks:</h1>
       {tasks.length === 0 ? (
         <Card>

@@ -37,6 +37,7 @@ It includes authentication, protected routes, and full CRUD operations.
 * React
 * React Router
 * Axios
+* Tailwind CSS
 
 ### Backend
 
@@ -128,15 +129,69 @@ npm run dev
 * React state management
 
 ---
+##  UI with Tailwind CSS
+##  Deployment
+
 
 ##  Future Improvements
 
-* UI with Tailwind CSS
-* Notifications (toast)
-* Deployment
+* Toast notifications
+* Search and filtering
+* Task due dates
+* User profile management
+* Drag-and-drop task organization
 
 ---
+
+## Screenshots
+
+The following screenshots demonstrate the application's authentication flow, project management dashboard, responsive design, and task management features.
+
+### Login Page (Desktop)
+<img src="./screenshots/login_desktop.png" width="800">
+
+### Login Page (Mobile)
+<img src="./screenshots/login_mobile.png" width="350">
+
+---
+
+### Register Page (Desktop)
+<img src="./screenshots/register_desktop.png" width="800">
+
+### Register Page (Mobile)
+<img src="./screenshots/register_mobile.png" width="350">
+
+---
+
+### Dashboard (Desktop)
+<img src="./screenshots/dashboard_desktop.png" width="800">
+
+### Dashboard (Mobile)
+<img src="./screenshots/dashboard_mobile.png" width="350">
+
+---
+### Create Project
+<img src="./screenshots/createProject.png" width="800">
+
+### Edit Project
+<img src="./screenshots/editProject.png" width="800">
+
+---
+
+### Tasks Page (Desktop)
+<img src="./screenshots/tasks_desktop.png" width="800">
+
+### Tasks Page (Mobile)
+<img src="./screenshots/task_mobile.png" width="350">
+
+### Add Task
+<img src="./screenshots/addTask.png" width="800">
+
+...
 
 ##  Author
 
 Zineb Louniri
+
+
+
