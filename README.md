@@ -124,13 +124,55 @@ npm run dev
 
 * JWT Authentication
 * Middleware protection
-* Role-based access control
 * REST API design
 * React state management
 
 ---
 ##  UI with Tailwind CSS
-##  Deployment
+
+
+## Live Demo
+
+- **Frontend:** [https://task-flow-blush-nu.vercel.app](https://task-flow-blush-nu.vercel.app)
+- **Backend:** Running locally via [ngrok](https://ngrok.com) tunnel
+
+> **Note:** The original backend was deployed on [Fly.io](https://fly.io) at  
+> `https://taskflow-humming-harborbird-7368.fly.dev`  
+> but the free trial has expired and the instance is currently suspended.  
+> To run the full app, follow the instructions below.
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/zineblouniri/taskflow.git
+cd taskflow
+```
+
+### 2. Start the backend
+```bash
+cd server
+npm install
+npm run dev        # runs on http://localhost:8080
+```
+
+### 3. Expose backend with ngrok
+```bash
+ngrok http 8080
+# Copy the https URL e.g. https://motion-platform-haiku.ngrok-free.app
+```
+
+### 4. Update the frontend API URL
+In `client/src/api/axios.js`, set:
+```js
+baseURL: "https://your-ngrok-url.ngrok-free.app/api"
+```
+
+### 5. Start the frontend
+```bash
+cd client
+npm install
+npm run dev        # runs on http://localhost:5173
+```
+
 
 
 ##  Future Improvements
