@@ -133,7 +133,7 @@ npm run dev
 
 ## Live Demo
 
-- **Frontend:** [https://task-flow-blush-nu.vercel.app](https://task-flow-blush-nu.vercel.app)
+- **Frontend:** [ https://client-psi-eosin-43.vercel.app](https://task-flow-blush-nu.vercel.app)
 - **Backend:** Running locally via [ngrok](https://ngrok.com) tunnel
 
 > **Note:** The original backend was deployed on [Fly.io](https://fly.io) at  
